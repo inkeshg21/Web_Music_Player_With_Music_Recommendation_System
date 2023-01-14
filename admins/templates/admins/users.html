@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <div class="">
+        <div>
+            <h5 class="">Songs</h5>
+            <p class="text-s">Browse all the songs added in the MUSICA.</p>
+        </div>
+        <div class="d-flex my-4">
+            <div>
+                <form class="d-flex" action="" method="GET">
+                    <div class="text-s text-secondary">
+                        <input class="form-control form-control-sm rounded" type="text" placeholder="Search">
+                    </div>
+                    <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="ms-auto me-3">
+                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-music">+</a>
+            </div>
+        </div>
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col d-flex align-items-center">
+                <div class="no-img-avatar-sm badge-danger"><i class="fa-solid fa-music text-danger"></i></div>
+                <div class="mx-2">
+                    <p class="m-0 text-s">Dandlions</p>
+                    <p class="m-0 text-sm">Artist: Ruth B</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-info fw-light px-3">Pop</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">SPYDEi</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">11 Jan, 2022</p>
+            </div>
+            <div class="col-auto">
+                <button class="btn badge-muted rounded text-sm"><i class="fa-solid fa-edit text-secondary"></i></button>
+                <button class="btn badge-danger rounded text-sm mx-1"><i class="fa-solid fa-trash text-danger"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

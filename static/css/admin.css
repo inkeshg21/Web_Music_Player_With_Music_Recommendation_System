@@ -1,0 +1,23 @@
+.sidebar {
+    width: 30ch;
+    height: 100%;
+    border-right: 1px solid #dedede;
+    position: fixed;
+    left: 0;
+}
+
+.d-link{
+    display: block;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.3s;
+    color: #707070;
+}
+
+.d-link:hover {
+    background: #ebebeb;
+}
+
+.active {
+    background: #ebebeb;
+}

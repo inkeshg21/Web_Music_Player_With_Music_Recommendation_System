@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+MUSICA
+{% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div>
+        <p class="m-0">Hey {{request.user}} 👋 Welcome!</p>
+    </div>
+    <div class="my-4">
+        <h5>Popular Songs</h5>
+    </div>
+    <div class="row">
+        {% for m in musics %}
+        <div class="col-md-3 my-3">
+            <div class="border rounded">
+                <img src="/{{m.cover}}" style="height: 10ch; width:100%; object-fit: cover;" alt="">
+                <div class="d-flex my-2 px-2">
+                    <div class="no-img-avatar-sm badge-primary"><i class="fa-solid fa-play text-primary"></i></div>
+                    <div class="mx-2">
+                        <p class="m-0 text-s title">{{m.title}}</p>
+                        <p class="m-0 text-sm title">{{m.singer}}</p>
+                    </div>
+                    <div class="ms-auto">
+                        <p class="m-0 text-xs">3:45</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

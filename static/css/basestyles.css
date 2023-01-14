@@ -1,0 +1,200 @@
+*{
+    font-family: Poppins;
+    color: #707070;
+}
+
+a {
+    text-decoration: none;
+    color: #707070;
+}
+
+
+
+:root {
+  --primary: #3aa0ff;
+  /* --primary: #65B5FF; */
+  --primary-light: #8AC6FD;
+  --primary-muted: #D7ECFF;
+  --primary-faded: #F3F9FF;
+
+  --secondary: #8C8C8C;
+  --secondary-light: #B8B8B8;
+  --secondary-muted: #E7E7E7;
+
+  --danger: #FF5454;
+  --danger-light: #FF7676;
+  --danger-muted: #FFE6E6;
+
+  --success: #4FE02A;
+  --success-light: #5FEC53;
+  --success-muted: #CCFFD1;
+
+  --warning: #FFD600;
+  --warning-light: #F5FF82;
+  --warning-muted: #FFF6C9;
+
+  --info: #3FCEE1;
+  --info-light: #6FE9F9;
+  --info-muted: #CCF9FF;
+
+  --light: #FFFFFF;
+  --dark: #615E5E;
+  --muted: #f1f1f1;
+
+  --rounded: 10px;
+  --rounded-sm: 6px;
+}
+
+nav {
+}
+
+.user-drp{
+    position: absolute !important;
+    left: -8ch !important;
+}
+
+.text-md {
+  font-size: 1rem;
+}
+
+.text-s {
+  font-size: 0.9rem;
+}
+
+.text-sm {
+  font-size: 0.8rem;
+}
+
+.text-xs {
+  font-size: 0.7rem;
+}
+
+.text-xxs {
+  font-size: 0.6rem;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+.text-muted {
+  color: var(--secondary-light) !important;
+}
+
+.text-dark {
+  color: var(--dark) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.text-success {
+  color: var(--success) !important;
+}
+
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.text-info {
+  color: var(--info) !important;
+}
+
+.bg-primary {
+  background: var(--primary) !important;
+}
+
+.bg-secondary {
+  background: var(--secondary) !important;
+}
+
+.bg-dark {
+  background: var(--dark) !important;
+}
+
+.bg-muted {
+  background: var(--muted) !important;
+}
+
+.bg-danger {
+  background: var(--danger) !important;
+}
+
+.bg-success {
+  background: var(--success) !important;
+}
+
+.bg-warning {
+  background: var(--warning) !important;
+}
+
+.bg-info {
+  background: var(--info) !important;
+}
+
+.rounded {
+    border-radius: 10px !important;
+}
+
+label{
+    font-size: 0.8rem;
+    color: #707070
+}
+
+.no-img-avatar-sm {
+    height: 3.5ch;
+    width: 3.5ch;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.no-img-avatar {
+    height: 5ch;
+    width: 5ch;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge-primary {
+    background: var(--primary-muted);
+    color: var(--primary);
+}
+
+.badge-danger {
+    background: var(--danger-muted);
+    color: var(--danger);
+}
+
+.badge-info {
+    background: var(--info-muted);
+    color: var(--info);
+}
+
+.badge-success {
+    background: var(--success-muted);
+    color: var(--success);
+}
+
+.badge-muted {
+    background: var(--muted);
+    color: var(--dark);
+}
+
+.badge-warning {
+    background: var(--warning-muted);
+    color: var(--warning);
+}
+
+.title {
+    white-space: nowarp;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

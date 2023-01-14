@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    <div class="">
+        <div>
+            <h5 class="">Songs</h5>
+            <p class="text-s">Browse all the songs added in the MUSICA.</p>
+        </div>
+        <div class="d-flex my-4">
+            <div>
+                <form class="d-flex" action="" method="GET">
+                    <div class="text-s text-secondary">
+                        <input class="form-control form-control-sm rounded" type="text" placeholder="Search">
+                    </div>
+                    <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="ms-auto me-3">
+                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-music">+</a>
+            </div>
+        </div>
+        {% for music in musics %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col-3 d-flex align-items-center">
+                <div class="no-img-avatar-sm badge-danger"><i class="fa-solid fa-music text-danger"></i></div>
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{music.title}}</p>
+                    <p class="m-0 text-sm">Artist: {{music.singer}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-info fw-light px-3">{{music.genre}}</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">{{music.uploader}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">11 Jan, 2022</p>
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-muted rounded text-sm" href="/admins/update-music/{{music.id}}"><i
+                        class="fa-solid fa-edit text-secondary"></i></a>
+                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-music/{{music.id}}"><i class="fa-solid fa-trash text-danger"></i>
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    <div class="py-4">
+        <p>Upload Song</p>
+        <div class="col-5">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group my-3">
+                    <label for="">Title:</label>
+                    <div>
+                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Music Title"
+                               value="{{data.title}}" name="title" required>
+
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <label for="">Singer:</label>
+                    <div>
+                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Singer Name"
+                               value="{{data.singer}}" name="singer" required>
+
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <label class="text-sm" for="">Genre:</label>
+                    <select class="form-select text-secondary text-s rounded" name="genre" id="" required>
+                        <option class="text-secondary" disabled>--select--</option>
+                        <option class="text-secondary" value="Pop">Pop</option>
+                        <option class="text-secondary" value="Jazz">Jazz</option>
+                        <option class="text-secondary" value="Rock">Rock</option>
+                    </select>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="">File:</label>
+                    <div>
+                        <input type="file" name="file">
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="">Cover Image:</label>
+                    <div class="my-2">
+                        <img src="/{{data.cover}}" style="height: 5ch; width: 7ch; object-fit: contain;" alt="">
+                    </div>
+                    <div>
+                        <input type="file" name="cover">
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <label for="">Poster Image:</label>
+                    <div class="my-2">
+                        <img src="/{{data.poster}}" style="height: 5ch; width: 7ch; object-fit: contain;" alt="">
+                    </div>
+                    <div>
+                        <input type="file" name="poster">
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="">Description:</label>
+                    <div>
+                        <textarea class="form-control text-secondary rounded text-s" name="description" rows="10"
+                                  placeholder="Song description..." required>{{data.description}}</textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-primary btn-sm px-3 rounded d-block ms-auto rounded" type="submit">Save
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
