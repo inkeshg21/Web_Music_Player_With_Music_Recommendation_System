@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="py-2">
+        <p>Add a user to MUSICA</p>
+        <div class="col-5">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group my-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% for error in form.username.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group my-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% for error in form.email.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group my-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    {% for error in form.paswword1.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group my-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    {% for error in form.password2.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <button class="btn btn-sm btn-primary rounded py-2 d-block w-100" type="submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

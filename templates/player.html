@@ -1,0 +1,38 @@
+{% load static %}
+<div>
+  <!-- <audio id="player">
+    <source src="{{music.file}}" type="audio/mp3">
+  </audio> -->
+
+  <div class="container mx-auto border rounded shadow-sm bg-light my-3 py-3 px-2 row">
+    <div class="col d-flex align-items-center">
+      <img class="rounded" src="/{{music.poster}}" style="height: 6ch; width: 5ch; object-fit: cover;" alt="">
+      <div class="mx-2">
+        <h6 class="m-0">{{music.title}}</h6>
+        <p class="m-0 text-s">{{music.singer}}</p>
+      </div>
+    </div>
+    <div class="col d-flex align-items-center">
+      <audio id="player" controls autoplay>
+        <source src="{{music.file}}" type="audio/mp3">
+      </audio>
+    </div>
+    <div class="col-3 d-flex align-items-center jsutify-content-center">
+      <div onclick="" id="prev-btn" class="no-img-avatar-sm badge-muted">
+        <i class="fa-solid fa-backward-step text-dark"></i>
+      </div>
+      <div onclick="audioPlay()" id="play-btn" class="no-img-avatar badge-muted mx-2">
+        <i class="fa-solid fa-play text-dark"></i>
+      </div>
+      <div onclick="" id="next-btn" class="no-img-avatar-sm badge-muted">
+        <i class="fa-solid fa-forward-step text-dark"></i>
+      </div>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+      <div onclick="" id="next-btn" class="no-img-avatar-sm">
+        <i class="fa-solid fa-file-circle-plus text-dark"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'scripts/music.js' %}"></script>
