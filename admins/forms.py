@@ -65,3 +65,59 @@ class MusicForm(forms.Form):
             if filter:
                 raise forms.ValidationError('Music is already uploaded')
             return file
+
+
+class UserUpdate(forms.Form):
+    first_name = forms.CharField(
+        label='First Name', max_length=200,
+        required= False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter first name"}),
+        error_messages={
+            'required': 'Email is required.',
+            'invalid': 'Invalid name.',
+            'max_length': 'First Name must be at most 200 characters.'
+        }
+    )
+    last_name = forms.CharField(
+        label='Last Name', max_length=200,
+        required= False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter last name"}),
+        error_messages={
+            'required': 'Email is required.',
+            'invalid': 'Invalid name.',
+            'max_length': 'Last Name must be at most 200 characters.'
+        }
+    )
+    email = forms.EmailField(
+        label='Email', max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter email"}),
+        error_messages={
+            'required': 'Email is required.',
+            'invalid': 'Invalid email.',
+            'max_length': 'Email must be at most 30 characters.'
+        }
+    )
+
+    username = forms.CharField(
+        label='Username', max_length=15,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter username"}),
+        error_messages={
+            'required': 'Username is required.',
+            'invalid': 'Invalid username.',
+            'max_length': 'Username must be at most 15 characters.',
+        }
+    )
+    phone = forms.CharField(
+        label='Phone', max_length=10,
+        required= False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter phone number"}),
+        error_messages={
+            'invalid': 'Invalid phone number.',
+            'max_length': 'Phone number must be 10 characters.',
+        }
+    )
