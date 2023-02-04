@@ -8,50 +8,68 @@ Musica | Admin
 <div class="">
     <div class="">
         <div>
-            <h5 class="">Songs</h5>
-            <p class="text-s">Browse all the songs added in the MUSICA.</p>
+            <h5 class="">Users</h5>
+            <p class="text-s">Manage accounts for all user to MUSICA</p>
         </div>
         <div class="d-flex my-4">
             <div>
-                <form class="d-flex" action="" method="GET">
+                <form class="d-flex" action="" method="POST">
+                    {% csrf_token %}
                     <div class="text-s text-secondary">
-                        <input class="form-control form-control-sm rounded" type="text" placeholder="Search">
+                        <input class="form-control form-control-sm rounded" type="text" name="search" placeholder="Search" value="{{search}}">
                     </div>
                     <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
                 </form>
             </div>
             <div class="ms-auto me-3">
-                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-music">+</a>
+                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-user">+</a>
             </div>
         </div>
+        {% for user in users %}
         <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
-            <div class="col d-flex align-items-center">
-                <div class="no-img-avatar-sm badge-danger"><i class="fa-solid fa-music text-danger"></i></div>
+            <div class="col-auto d-flex align-items-center">
+                <div class='position-relative'>
+                    {% if user.profile.image %}
+                    <img class='avatar' src="/{{user.profile.image}}" alst="" />
+                    {% else %}
+                    <div class='no-img-avatar bg-muted rounded-circle'>
+                        <span class='text-secondary'>{{ user.username|make_list|first|upper }}</span>
+                    </div>
+                    {% endif %}
+                </div>
                 <div class="mx-2">
-                    <p class="m-0 text-s">Dandlions</p>
-                    <p class="m-0 text-sm">Artist: Ruth B</p>
+                    <p class="m-0 text-s">{{user.username}}</p>
+                    <p class="m-0 text-xs badge badge-primary">Creater</p>
                 </div>
             </div>
             <div class="col">
-                <p class="m-0 text-s">Genre:</p>
-                <p class="m-0 text-sm badge badge-info fw-light px-3">Pop</p>
-            </div>
-            <div class="col">
-                <div class="mx-2">
-                    <p class="m-0 text-s">Uploaded By:</p>
-                    <p class="m-0 text-sm fw-bold">SPYDEi</p>
-                </div>
-            </div>
-            <div class="col">
-                <p class="m-0 text-s">Uploaded:</p>
-                <p class="m-0 text-sm">11 Jan, 2022</p>
+                <p class="m-0 text-sm px-3">{{user.email}}</p>
             </div>
             <div class="col-auto">
-                <button class="btn badge-muted rounded text-sm"><i class="fa-solid fa-edit text-secondary"></i></button>
-                <button class="btn badge-danger rounded text-sm mx-1"><i class="fa-solid fa-trash text-danger"></i>
-                </button>
+                <p class="m-0 text-s">Full Name:</p>
+                <p class="m-0 text-sm px-3">##</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Joined:</p>
+                    <p class="m-0 text-sm fw-bold">{{user.date_joined}}</p>
+                </div>
+            </div>
+            <div class="col-auto">
+                <p class="m-0 text-s">Status:</p>
+                {% if user.is_active %}
+                <p class="m-0 text-xs badge badge-success">Active</p>
+                {% else %}
+                <p class="m-0 text-xs badge badge-danger">Away</p>
+                {% endif %}
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-muted rounded text-sm" href="/admins/update-user/{{user.id}}"><i class="fa-solid fa-edit text-secondary"></i></a>
+                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-user/{{user.id}}"><i
+                        class="fa-solid fa-trash text-danger"></i></a>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

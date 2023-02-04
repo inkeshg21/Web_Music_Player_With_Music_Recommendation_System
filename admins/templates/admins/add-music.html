@@ -6,7 +6,8 @@ Musica | Admin
 
 {% block content %}
 <div class="px-3">
-    <div class="py-4">
+    {% include 'message.html' %}
+    <div class="py-2">
         <p>Upload Song</p>
         <div class="col-5">
             <form action="" method="POST" enctype="multipart/form-data">
@@ -37,7 +38,7 @@ Musica | Admin
                 <div class="form-group my-3">
                     <label for="">File:</label>
                     <div>
-                        <input type="file" name="file" required>
+                        <input type="file" name="file" accept="audio/*" required>
                     </div>
                 </div>
 

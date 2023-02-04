@@ -3,9 +3,9 @@
         <div>
             <div class="mx-2">
                 <a class="d-link py-3 px-3 my-2 text-s {{active_music}}" href="/admins/"><i class="me-2 fa-solid fa-music"></i>Music</a>
-                <a class="d-link py-3 px-3 my-2 text-s {{active_uploaders}}" href=""><i class="me-2 fa-solid fa-compact-disc"></i>Uploaders</a>
-                <a class="d-link py-3 px-3 my-2 text-s {{active_users}}" href=""><i class="me-2 fa-solid fa-users"></i>Users</a>
-                <a class="d-link py-3 px-3 my-2 text-s {{active_profile}}" href=""><i class="me-2 fa-solid fa-user"></i>Profile</a>
+                <a class="d-link py-3 px-3 my-2 text-s {{active_uploaders}}" href=""><i class="me-2 fa-solid fa-compact-disc"></i>My Music</a>
+                <a class="d-link py-3 px-3 my-2 text-s {{active_users}}" href="/admins/users"><i class="me-2 fa-solid fa-users"></i>Users</a>
+                <a class="d-link py-3 px-3 my-2 text-s {{active_profile}}" href="/account/update-profile/{{request.user.id}}"><i class="me-2 fa-solid fa-user"></i>Profile</a>
             </div>
         </div>
     </div>

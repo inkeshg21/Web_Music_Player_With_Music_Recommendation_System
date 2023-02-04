@@ -1,9 +1,31 @@
 from django import forms
 from django.contrib import auth
 from django.contrib.auth.models import User
-
+import re
 
 class RegistrationForm(forms.Form):
+    first_name = forms.CharField(
+        label='First Name', max_length=200,
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter first name"}),
+        error_messages={
+            'required': 'Email is required.',
+            'invalid': 'Invalid name.',
+            'max_length': 'First Name must be at most 200 characters.'
+        }
+    )
+    last_name = forms.CharField(
+        label='Last Name', max_length=200,
+        required= False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter last name"}),
+        error_messages={
+            'required': 'Email is required.',
+            'invalid': 'Invalid name.',
+            'max_length': 'Last Name must be at most 200 characters.'
+        }
+    )
     email = forms.EmailField(
         label='Email', max_length=100,
         widget=forms.TextInput(
@@ -25,6 +47,16 @@ class RegistrationForm(forms.Form):
             'max_length': 'Username must be at most 15 characters.',
         }
     )
+    phone = forms.CharField(
+        label='Phone', max_length=10,
+        required= False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Enter phone number"}),
+        error_messages={
+            'invalid': 'Invalid phone number.',
+            'max_length': 'Phone number must be 10 characters.',
+        }
+    )
     password1 = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(
@@ -35,13 +67,33 @@ class RegistrationForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Retype Password"}))
 
+    # def clean_password1(self):
+    #     if 'password1' in self.cleaned_data:
+    #         password1 = self.cleaned_data['password1']
+    #         if len(password1):
+    #             raise forms.ValidationError('Passwords do not match.')
+    #         elif password1
+
     def clean_password2(self):
         if 'password1' in self.cleaned_data:
             password1 = self.cleaned_data['password1']
             password2 = self.cleaned_data['password2']
+            print(password1)
+            print(password2)
             if password1 == password2:
                 return password2
         raise forms.ValidationError('Passwords do not match.')
+
+    def clean_password1(self):
+        if "password1" in self.cleaned_data:
+            if(bool(re.search('^[a-zA-Z0-9]*$',self.cleaned_data['password1'])) == True):
+                raise forms.ValidationError('Password must contain at least 1 special character and uppercase.')
+            else:
+                if (len(self.cleaned_data['password1']) < 6):
+                    raise forms.ValidationError('Passwords must be more than 6 character.')
+                elif (len(self.cleaned_data['password1']) > 18):
+                    raise forms.ValidationError('Passwords must be less than 18 character.')
+        return self.cleaned_data['password1']
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -88,3 +140,36 @@ class LoginForm(forms.Form):
             if not user:
                 raise forms.ValidationError('Incorrect password.')
             return password
+
+
+class PasswordChange(forms.Form):
+    current_password = forms.CharField(
+        label='Current Password',
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Current Password"}))
+    password1 = forms.CharField(
+        label='New Password',
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "New Password"})
+    )
+    password2 = forms.CharField(
+        label='Confirm New Password',
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control rounded text-sm form-control-lg", "placeholder": "Confirm New Password"}))
+    def clean_password1(self):
+        if "password1" in self.cleaned_data:
+            if(bool(re.search('^[a-zA-Z0-9]*$',self.cleaned_data['password1'])) == True):
+                raise forms.ValidationError('Password must contain at least 1 special character and uppercase.')
+            else:
+                if (len(self.cleaned_data['password1']) < 6):
+                    raise forms.ValidationError('Passwords must be more than 6 character.')
+                elif (len(self.cleaned_data['password1']) > 18):
+                    raise forms.ValidationError('Passwords must be less than 18 character.')
+        return self.cleaned_data['password1']
+    def clean_password2(self):
+        if 'password1' in self.cleaned_data:
+            password1 = self.cleaned_data['password1']
+            password2 = self.cleaned_data['password2']
+            if password1 == password2:
+                return password2
+        raise forms.ValidationError('Passwords do not match.')

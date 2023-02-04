@@ -6,6 +6,7 @@ Musica | Admin
 
 {% block content %}
 <div class="px-3">
+    {% include 'message.html' %}
     <div class="">
         <div>
             <h5 class="">Songs</h5>
@@ -13,9 +14,11 @@ Musica | Admin
         </div>
         <div class="d-flex my-4">
             <div>
-                <form class="d-flex" action="" method="GET">
+                <form class="d-flex" action="" method="POST">
+                    {% csrf_token %}
                     <div class="text-s text-secondary">
-                        <input class="form-control form-control-sm rounded" type="text" placeholder="Search">
+                        <input class="form-control form-control-sm rounded" type="text" name="search"
+                            placeholder="Search" value="{{search}}">
                     </div>
                     <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
                 </form>
@@ -50,7 +53,8 @@ Musica | Admin
             <div class="col-auto">
                 <a class="btn badge-muted rounded text-sm" href="/admins/update-music/{{music.id}}"><i
                         class="fa-solid fa-edit text-secondary"></i></a>
-                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-music/{{music.id}}"><i class="fa-solid fa-trash text-danger"></i>
+                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-music/{{music.id}}"><i
+                        class="fa-solid fa-trash text-danger"></i>
                 </a>
             </div>
         </div>
