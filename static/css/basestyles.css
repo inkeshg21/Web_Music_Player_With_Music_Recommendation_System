@@ -1,11 +1,11 @@
-*{
-    font-family: Poppins;
-    color: #707070;
+* {
+  font-family: Poppins;
+  color: #707070;
 }
 
 a {
-    text-decoration: none;
-    color: #707070;
+  text-decoration: none;
+  color: #707070;
 }
 
 
@@ -45,12 +45,11 @@ a {
   --rounded-sm: 6px;
 }
 
-nav {
-}
+nav {}
 
-.user-drp{
-    position: absolute !important;
-    left: -8ch !important;
+.user-drp {
+  position: absolute !important;
+  left: -8ch !important;
 }
 
 .text-md {
@@ -138,63 +137,98 @@ nav {
 }
 
 .rounded {
-    border-radius: 10px !important;
+  border-radius: 10px !important;
 }
 
-label{
-    font-size: 0.8rem;
-    color: #707070
+label {
+  font-size: 0.8rem;
+  color: #707070
+}
+
+.avatar-sm {
+  height: 3.5ch;
+  width: 3.5ch;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar {
+  height: 5ch;
+  width: 5ch;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-lg {
+  height: 6ch;
+  width: 6ch;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .no-img-avatar-sm {
-    height: 3.5ch;
-    width: 3.5ch;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 3.5ch;
+  width: 3.5ch;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .no-img-avatar {
-    height: 5ch;
-    width: 5ch;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 5ch;
+  width: 5ch;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .badge-primary {
-    background: var(--primary-muted);
-    color: var(--primary);
+  background: var(--primary-muted);
+  color: var(--primary);
 }
 
 .badge-danger {
-    background: var(--danger-muted);
-    color: var(--danger);
+  background: var(--danger-muted);
+  color: var(--danger);
 }
 
 .badge-info {
-    background: var(--info-muted);
-    color: var(--info);
+  background: var(--info-muted);
+  color: var(--info);
 }
 
 .badge-success {
-    background: var(--success-muted);
-    color: var(--success);
+  background: var(--success-muted);
+  color: var(--success);
 }
 
 .badge-muted {
-    background: var(--muted);
-    color: var(--dark);
+  background: var(--muted);
+  color: var(--dark);
 }
 
 .badge-warning {
-    background: var(--warning-muted);
-    color: var(--warning);
+  background: var(--warning-muted);
+  color: var(--warning);
 }
 
 .title {
-    white-space: nowarp;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  white-space: nowarp;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#media {
+  position: sticky;
+  bottom: 2ch;
+}
+
+.playlist-layer {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to Right, rgba(240, 240, 240, 1), rgba(0, 0, 0, 0.5));
+  position: absolute;
+  top: 0;
 }

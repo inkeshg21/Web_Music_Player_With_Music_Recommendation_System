@@ -25,17 +25,21 @@ Musica | Login
                     <div class="text-danger error-message text-sm">{{ error }}</div>
                     {% endfor %}
                 </div>
-                <div class="form-group my-3">
+                <div class="form-group mt-3" style="position:relative">
                     {{ form.password.label_tag }}
                     {{ form.password }}
+                    <button id="p1" class="" onclick="showPassword('p1', 'password')" type="button" style="position: absolute; top: 3ch; right: 1ch; background: none; border: none; outline: none;"><i class="fa-solid fa-eye"></i></button>
                     {% for error in form.password.errors %}
                     <div class="text-danger error-message text-sm">{{ error }}</div>
                     {% endfor %}
                 </div>
+                <div class="my-1 mb-3">
+                    <a class="text-sm text-primary" href="/admins/forgot-password">Forgot Password?</a>
+                </div>
                 <button class="btn btn-sm btn-primary rounded py-2 d-block w-100" type="submit">Sign in</button>
             </form>
             <div class="my-3">
-                <p class="text-sm">Don't have an account? <a href="/account/register">Sign in</a></p>
+                <p class="text-sm">Don't have an account? <a href="/account/register">Sign Up</a></p>
             </div>
         </div>
     </div>

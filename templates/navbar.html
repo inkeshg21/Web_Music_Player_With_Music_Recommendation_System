@@ -1,12 +1,13 @@
-<div class="" style="height: 7ch">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-3 fixed-top">
-        <div class="d-flex container">
+<div class="" style="height: 8ch">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-3 fixed-top" style="height: 8ch;">
+        <div class="d-flex container-fluid">
             <a class="navbar-brand text-secondary" href="/"><span class="text-info">M</span>USICA</a>
+            {% if not request.user.is_superuser %}
             <div class="d-flex mx-auto">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item mx-2">
-                            <a class="{{active_home}} text-s py-2 px-3" href="#">Home</a>
+                            <a class="{{active_home}} text-s py-2 px-3" href="/">Home</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a class="{{active_browse}} text-s py-2 px-3" href="#">Browse</a>
@@ -15,34 +16,39 @@
                             <a class="{{active_library}} text-s py-2 px-3" href="#">My Library</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="{{active_library}} text-s py-2 px-3" href="#">Playlist</a>
+                            <a class="{{active_playlist}} text-s py-2 px-3" href="/playlist">Playlist</a>
                         </li>
                     </ul>
                 </div>
             </div>
+            {% endif %}
+            {% if request.user.is_authenticated %}
             <div class="dropdown d-flex align-items-center justify-content-center position-relative ms-auto">
                 <p class="m-0 me-2">{{request.user}}</p>
-                <div class="" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                     aria-expanded="false">
+                <div class="" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="no-img-avatar-sm badge-info">A</div>
                 </div>
                 <ul class="dropdown-menu user-drp" aria-labelledby="dropdownMenuButton1">
                     <li>
-                        <a href=""
-                           class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s"
-                           data-bs-toggle="tab" data-bs-target="#settings" role="tab">Settings
+                        <a href="/account/update-profile/{{request.user.id}}"
+                            class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">Settings
                             <i class="fa-solid fa-cog"></i>
                         </a>
                     </li>
                     <li><a href="/account/logout"
-                           class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">Logout
-                        <i class="fa-solid fa-sign-out"></i>
-                    </a></li>
+                            class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">Logout
+                            <i class="fa-solid fa-sign-out"></i>
+                        </a></li>
                 </ul>
             </div>
+            {% else %}
+            <div>
+                <a class="btn btn-primary rounded btn sm px-3" href="/account/login">Sign in</a>
+            </div>
+            {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <i data-feater="search"></i>
             </button>
         </div>
