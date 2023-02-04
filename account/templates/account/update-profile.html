@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    <div class="py-4">
+        {% include 'message.html' %}
+        <p>Update User Profile</p>
+        <!-- <div class="col-5">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group my-3">
+                    <label for="">Firstname:</label>
+                    <div>
+                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Enter First Name"
+                               value="{{profile.first_name}}" name="first_name" required>
+
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <label for="">Lastname:</label>
+                    <div>
+                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Enter Last Name"
+                               value="{{profile.last_name}}" name="last_name" required>
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    <label for="">Profile Pic:</label>
+                    <div>
+                        <input type="file" name="image" accept="image">
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-primary btn-sm px-3 rounded d-block ms-auto rounded" type="submit">Save
+                    </button>
+                </div>
+
+            </form>
+        </div> -->
+        <div class='row'>
+            <div class='col-md-4'>
+                <div class='rounded border py-4 px-4'>
+                    <div class='d-flex'>
+                        <div class='position-relative'>
+                            {% if profile.image %}
+                            <img class='avatar' src="/{{profile.image}}" alst="" />
+                            {% else %}
+                            <div class='no-img-avatar bg-muted rounded-circle'>
+                                <span class='text-secondary'>{{ profile.user.username|make_list|first|upper }}</span>
+                            </div>
+                            {% endif %}
+                            <span style="position:absolute; bottom:-1ch; right: -0.5ch;"
+                                onclick="document.querySelector('#file-field').click()" class='profile-edit-btn'><i
+                                    class='fa-solid fa-camera text-dark'></i></span>
+                        </div>
+                    </div>
+
+                    <div class="my-3">
+                        <div>
+                            <small class='text-s fw-lighter'>Badges</small>
+                            <div class="d-flex mt-2">
+                                <p class="m-0 text-xs badge badge-warning">Member</p>
+                                {% if profile.user.is_staff %}
+                                <p class="m-0 text-xs badge badge-primary mx-1">Creater</p>
+                                {% endif %}
+                            </div>
+                            <hr />
+                        </div>
+                        <div>
+                            <small class='text-s fw-lighter'>Email</small>
+                            <p>{{profile.user.email}}</p>
+                            <hr />
+                        </div>
+                        <div>
+                            <small class='fw-lighter'>Username</small>
+                            <p>{{profile.user.username}}</p>
+                            <hr />
+                        </div>
+                        <div>
+                            <small class='fw-lighter'>Contact</small>
+                            <p>{{profile.phone}}</p>
+                            <hr />
+                        </div>
+                        <div>
+                            <small class='fw-lighter'>Joined Date</small>
+                            <p>{{profile.user.date_joined}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class='col-md-8'>
+                <div class='rounded border p-4'>
+                    <h5 class='text-secondary'>General Settings</h5>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="file-field" type="file" name="image" hidden />
+                        <div class='my-3'>
+                            <div class='row my-3'>
+                                <div class='col'>
+                                    <label class='text-sm' htmlFor="">First Name:</label>
+                                    <input class='form-control rounded text-secondary text-sm' type="text"
+                                        value="{{profile.first_name}}" placeholder='Enter first name'
+                                        name="first_name" />
+                                </div>
+                                <div class='col'>
+                                    <label class='text-sm' htmlFor="">Last Name:</label>
+                                    <input class='form-control rounded text-secondary text-sm' type="text"
+                                        value="{{profile.last_name}}" placeholder='Enter last name' name="last_name" />
+                                </div>
+                            </div>
+                            <div class='row my-3'>
+                                <div class='col'>
+                                    <label class='text-sm' htmlFor="">Email:</label>
+                                    <input class='form-control rounded text-secondary text-sm' type="text"
+                                        value="{{profile.user.email}}" placeholder='Enter your email' name="email" />
+                                </div>
+                                <div class='col'>
+                                    <label class='text-sm' htmlFor="">Phone:</label>
+                                    <input class='form-control rounded text-secondary text-sm' type="text"
+                                        value="{{profile.phone}}" placeholder='Enter your phone number' name="phone" />
+                                </div>
+                            </div>
+                            <div>
+                                <button class='btn btn-primary btn-sm rounded px-3' type="submit"
+                                    name="details">Update</button>
+                                <button class='btn btn-sm border-secondary rounded px-3 mx-2 text-secondary'
+                                    type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class='my-3 rounded border p-4'>
+                    <h5 class='text-secondary'>Account Data</h5>
+                    <div class='row'>
+                        <div class='col-4'>
+                            <label class='text-sm' htmlFor="">Username</label>
+                            <input class='form-control rounded text-secondary text-sm' disabled type="text"
+                                value={{profile.user.username}} />
+                        </div>
+
+                    </div>
+                    <hr />
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div>
+                            <h6>Change Password</h6>
+                            <div>
+                                <div class="form-group my-3">
+                                    {{ form.current_password }}
+                                    {% for error in form.username.errors %}
+                                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group my-3">
+                                    {{ form.password1 }}
+                                    {% for error in form.password1.errors %}
+                                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group my-3">
+                                    {{ form.password2 }}
+                                    {% for error in form.password2.errors %}
+                                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div>
+                                <button class='btn btn-primary btn-sm rounded px-3' type="submit"
+                                    name="passwords">Update</button>
+                                <button
+                                    class='btn btn-sm border-secondary rounded px-3 mx-2 text-secondary'>Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

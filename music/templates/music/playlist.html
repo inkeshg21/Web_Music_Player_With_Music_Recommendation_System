@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="">
+        <div class="my-5">
+            <h6>What's hot 🔥</h6>
+            <div class="" style="height: 35ch; width: 100%; position: relative;">
+                <img class="rounded" src="{% static 'static_images/music.jpg' %}"
+                    style="height: 100%; width: 100%; object-fit: cover;" alt="">
+                <div class="playlist-layer rounded px-4 py-5 d-flex flex-column justify-content-between">
+                    <h1 class="fw-bolder col-3">MUSIC MAKES YOU FEEL BETTER</h1>
+                    <div>
+                        <button class="btn btn-dark rounded px-5 py-2">Play</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5 class="">My Playlist</h5>
+            <p class="text-s">Browse all the songs from your playlist.</p>
+        </div>
+        <!-- <div class="d-flex my-4">
+            <div>
+                <form class="d-flex" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="text-s text-secondary">
+                        <input class="form-control form-control-sm rounded" type="text" name="search"
+                            placeholder="Search" value="{{search}}">
+                    </div>
+                    <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="ms-auto me-3">
+                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-music">+</a>
+            </div>
+        </div> -->
+        {% for item in playlist %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col-auto d-flex align-items-center">
+                <div onclick="playMusic('{{item.music.id}}')" class="no-img-avatar-sm badge-info"><i
+                        class="fa-solid fa-play text-info"></i></div>
+            </div>
+            <div class="col-3 d-flex align-items-center">
+                <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{item.music.poster}}"
+                    alt="">
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{item.music.title}}</p>
+                    <p class="m-0 text-sm">{{item.music.singer}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-primary fw-light px-3">{{item.music.genre}}</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">{{item.music.uploader}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">{{item.music.date}}</p>
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-danger rounded text-sm mx-1" href="/delete-playlist/{{item.id}}"><i
+                        class="fa-solid fa-trash text-danger"></i>
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

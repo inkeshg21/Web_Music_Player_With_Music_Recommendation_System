@@ -14,3 +14,9 @@ class Music(models.Model):
     singer = models.CharField(max_length=250)
     description = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
+
+
+class Playlist(models.Model):
+    music = models.ForeignKey( Music, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateField(auto_now_add=True)

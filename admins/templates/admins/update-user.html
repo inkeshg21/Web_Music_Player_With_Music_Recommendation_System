@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="py-2">
+        <p>Update user {{user.username}}</p>
+        <div class="col-5">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row my-3">
+                    <div class="form-group col-6">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        {% for error in form.first_name.errors %}
+                        <div class="text-danger error-message text-sm">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group col-6">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        {% for error in form.last_name.errors %}
+                        <div class="text-danger error-message text-sm">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% for error in form.username.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group my-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% for error in form.email.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="form-group my-3">
+                    {{ form.phone.label_tag }}
+                    {{ form.phone }}
+                    {% for error in form.phone.errors %}
+                    <div class="text-danger error-message text-sm">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <button class="btn btn-sm btn-primary rounded py-2 d-block w-100" type="submit">Update</button>
+                <a class="btn btn-sm border my-2 rounded py-2 d-block w-100 text-secondary" type="submit" href="/admins/users">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
