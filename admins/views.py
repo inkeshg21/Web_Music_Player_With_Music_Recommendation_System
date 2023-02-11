@@ -2,13 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from account.auth import admin_only
+from accounts.auth import admin_only
 from .forms import MusicForm, UserUpdate
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from music.models import Music
-from account.forms import PasswordChange, RegistrationForm
-from account.models import Profile
+from accounts.forms import PasswordChange, RegistrationForm
+from accounts.models import Profile
 from .helpers import send_forgotpassword
 import uuid
 
@@ -194,6 +194,7 @@ def reset_password(request):
             if not User.objects.filter(email=email).first():
                 messages.error(request, "User not found")
             user = User.objects.get(email=email)
+            print(user)
             profile = Profile.objects.get(user=user)
             token = str(uuid.uuid4())
             profile.forgot_password_token = token

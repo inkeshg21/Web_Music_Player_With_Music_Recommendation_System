@@ -26,16 +26,22 @@
             <div class="dropdown d-flex align-items-center justify-content-center position-relative ms-auto">
                 <p class="m-0 me-2">{{request.user}}</p>
                 <div class="" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="no-img-avatar-sm badge-info">A</div>
+                    <div class="no-img-avatar-sm badge-info">{{ request.user.username|make_list|first|upper }}</div>
                 </div>
                 <ul class="dropdown-menu user-drp" aria-labelledby="dropdownMenuButton1">
                     <li>
-                        <a href="/account/update-profile/{{request.user.id}}"
+                        <a href="/accounts/update-profile/{{request.user.id}}"
                             class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">Settings
                             <i class="fa-solid fa-cog"></i>
                         </a>
                     </li>
-                    <li><a href="/account/logout"
+                    <li>
+                        <a href="/history"
+                            class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">History
+                            <i class="fa-solid fa-clock"></i>
+                        </a>
+                    </li>
+                    <li><a href="/accounts/logout"
                             class="dropdown-item d-flex justify-content-between text-dark align-items-center text-s">Logout
                             <i class="fa-solid fa-sign-out"></i>
                         </a></li>
@@ -43,7 +49,7 @@
             </div>
             {% else %}
             <div>
-                <a class="btn btn-primary rounded btn sm px-3" href="/account/login">Sign in</a>
+                <a class="btn btn-primary rounded btn sm px-3" href="/accounts/login">Sign in</a>
             </div>
             {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

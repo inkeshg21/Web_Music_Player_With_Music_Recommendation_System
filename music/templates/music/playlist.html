@@ -43,7 +43,7 @@ Musica | Admin
         {% for item in playlist %}
         <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
             <div class="col-auto d-flex align-items-center">
-                <div onclick="playMusic('{{item.music.id}}')" class="no-img-avatar-sm badge-info"><i
+                <div onclick="playMusic('playlist', '{{item.id}}')" class="no-img-avatar-sm badge-info"><i
                         class="fa-solid fa-play text-info"></i></div>
             </div>
             <div class="col-3 d-flex align-items-center">

@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0003_profile_phone_alter_profile_image'),
+        ('accounts', '0003_profile_phone_alter_profile_image'),
     ]
 
     operations = [

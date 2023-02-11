@@ -1,6 +1,6 @@
-function playMusic(id) {
+function playMusic(type, id) {
     $.ajax({
-        url: `/play-music/${id}`,
+        url: `/play-music/${type}/${id}`,
         type: "GET",
         dataType: "json",
         success: (data) => {

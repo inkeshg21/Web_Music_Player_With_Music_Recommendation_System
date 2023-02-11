@@ -20,3 +20,9 @@ class Playlist(models.Model):
     music = models.ForeignKey( Music, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_added = models.DateField(auto_now_add=True)
+
+
+class History(models.Model):
+    music = models.ForeignKey(Music, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)

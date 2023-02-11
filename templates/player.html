@@ -18,13 +18,13 @@
       </audio>
     </div>
     <div class="col-3 d-flex align-items-center jsutify-content-center">
-      <div onclick="" id="prev-btn" class="no-img-avatar-sm badge-muted">
+      <div onclick="playMusic('{{type}}', '{{prev}}')" id="prev-btn" class="no-img-avatar-sm badge-muted">
         <i class="fa-solid fa-backward-step text-dark"></i>
       </div>
       <div onclick="audioPlay()" id="play-btn" class="no-img-avatar badge-muted mx-2">
         <i class="fa-solid fa-play text-dark"></i>
       </div>
-      <div onclick="" id="next-btn" class="no-img-avatar-sm badge-muted">
+      <div onclick="playMusic('{{type}}', '{{next}}')" id="next-btn" class="no-img-avatar-sm badge-muted">
         <i class="fa-solid fa-forward-step text-dark"></i>
       </div>
     </div>

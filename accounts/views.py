@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import Profile
-from account.auth import unauthenticated_user
-from account.forms import PasswordChange, RegistrationForm, LoginForm
+from accounts.auth import unauthenticated_user
+from accounts.forms import PasswordChange, RegistrationForm, LoginForm
 
 
 @unauthenticated_user
@@ -23,10 +23,10 @@ def login_user(request):
                 return redirect("/")
             else:
                 messages.error(request, "Incorrect Password")
-                return render(request, "account/login.html", {'form': form})
+                return render(request, "accounts/login.html", {'form': form})
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 @unauthenticated_user
@@ -42,11 +42,11 @@ def register_user(request):
             user.set_password(password1)
             user.save()
             pofile.save()
-            return redirect('/account/login')
+            return redirect('/accounts/login')
     else:
         form = RegistrationForm()
 
-    return render(request, 'account/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 def logout_user(request):
@@ -91,10 +91,10 @@ def update_profile(request, id):
                     profile.user.set_password(password1)
                     profile.user.save()
                     messages.success(request, "Password changed successfully. Please login again")
-                    return redirect("/account/login")
+                    return redirect("/accounts/login")
     else:
         password_form = PasswordChange()
-    return render(request, 'account/update-profile.html', {'profile': profile, "active_profile": "active", 'form': password_form})
+    return render(request, 'accounts/update-profile.html', {'profile': profile, "active_profile": "active", 'form': password_form})
 
 
 # delete user

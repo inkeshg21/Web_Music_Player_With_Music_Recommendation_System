@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Musica | History
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="">
+        <div>
+            <h5 class="">Songs History</h5>
+        </div>
+        {% for h in history %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col-3 d-flex align-items-center">
+                <div class="no-img-avatar-sm badge-danger"><i class="fa-solid fa-music text-danger"></i></div>
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{h.music.title}}</p>
+                    <p class="m-0 text-sm">Artist: {{h.music.singer}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-info fw-light px-3">{{h.music.genre}}</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">{{h.music.uploader}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">{{h.music.date}}</p>
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-danger rounded text-sm mx-1" href="/delete-from-history/{{h.id}}"><i
+                        class="fa-solid fa-trash text-danger"></i>
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <div>
+        <a class="btn btn-sm btn-secondary rounded px-3" href="/delete-all-history">Clear History</a>
+    </div>
+</div>
+{% endblock %}
