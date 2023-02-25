@@ -6,6 +6,7 @@ Musica | Admin
 
 {% block content %}
 <div class="">
+    {% include 'message.html' %}
     <div class="">
         <div>
             <h5 class="">Users</h5>
@@ -65,8 +66,7 @@ Musica | Admin
             </div>
             <div class="col-auto">
                 <a class="btn badge-muted rounded text-sm" href="/admins/update-user/{{user.id}}"><i class="fa-solid fa-edit text-secondary"></i></a>
-                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-user/{{user.id}}"><i
-                        class="fa-solid fa-trash text-danger"></i></a>
+                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/delete-user/{{user.id}}"><i class="fa-solid fa-trash text-danger"></i></a>
             </div>
         </div>
         {% endfor %}

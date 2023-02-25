@@ -6,7 +6,7 @@ from accounts.auth import admin_only
 from .forms import MusicForm, UserUpdate
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from music.models import Music
+from music.models import History, Music, Playlist
 from accounts.forms import PasswordChange, RegistrationForm
 from accounts.models import Profile
 from .helpers import send_forgotpassword
@@ -89,14 +89,16 @@ def delete_music(request, id):
 def users(request):
     if request.method == 'POST':
         search = request.POST.get('search')
-        users = User.objects.filter(username__icontains=search)
+        users = User.objects.filter(
+            username__icontains=search)
+
         context = {
             "users": users,
             'active_users': 'active',
             'search': search
         }
     else:
-        users = User.objects.all().exclude(username=request.user)
+        users = User.objects.filter().exclude(username=request.user)
         context = {
             "users": users,
             'active_users': 'active'
@@ -118,6 +120,7 @@ def add_user(request):
             user.set_password(password1)
             user.save()
             pofile.save()
+            messages.success(request, "User created successfully")
             return redirect('/admins/add-user')
     else:
         form = RegistrationForm()
@@ -175,14 +178,6 @@ def delete_user(request, id):
     messages.success(request, "User has been deleted.")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-
-# delete user
-def delete_profile(request, id):
-    profile = Profile.objects.get(id=id)
-    profile.delete()
-    messages.success(request, "User has been deleted.")
-    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
-
 # reset password
 
 
@@ -225,7 +220,7 @@ def change_password(request, token):
         user = User.objects.get(id=user.id)
         user.set_password(password1)
         user.save()
-        return redirect('/account/login')
+        return redirect('/accounts/login')
     else:
         form = PasswordChange()
     return render(request, 'admins/reset-password.html', {'user_id': profile.user.id, 'form': form})
@@ -247,5 +242,24 @@ def music(request):
         context = {
             "musics": musics,
             'active_music': 'active'
+        }
+    return render(request, 'admins/music.html', context)
+
+
+@login_required
+def my_uploads(request):
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        musics = Music.objects.filter(title__icontains=search)
+        context = {
+            "musics": musics,
+            'active_uploads': 'active',
+            'search': search
+        }
+    else:
+        musics = Music.objects.filter(uploader=request.user).order_by('-date')
+        context = {
+            "musics": musics,
+            'active_uploads': 'active'
         }
     return render(request, 'admins/music.html', context)

@@ -11,6 +11,7 @@ from django.contrib import messages
 
 # Create your views here.
 @login_required
+@user_only
 def index(request):
     musics = Music.objects.all()
     recents = History.objects.filter(user=request.user).order_by('-date')
@@ -23,6 +24,7 @@ def index(request):
 
 
 @login_required
+@user_only
 def play_music(request, type, id):
 
     music = random.choice(list(Music.objects.all()))
@@ -64,6 +66,7 @@ def play_music(request, type, id):
 
 
 @login_required
+@user_only
 def add_to_playlist(request, id):
     music = Music.objects.get(id=id)
     playlistExist = list(Playlist.objects.filter(
@@ -79,6 +82,7 @@ def add_to_playlist(request, id):
 
 
 @login_required
+@user_only
 def show_playlist(request):
     playlist = Playlist.objects.filter(user=request.user).order_by('id')
     context = {
@@ -89,6 +93,7 @@ def show_playlist(request):
 
 
 @login_required
+@user_only
 def delete_playlist(request, id):
     playlist = Playlist.objects.get(id=id)
     playlist.delete()
