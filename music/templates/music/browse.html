@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+MUSICA
+{% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div>
+        {% include 'message.html' %}
+    </div>
+    <div>
+        <p class="m-0">Hey {{request.user}} 👋 Welcome!</p>
+    </div>
+
+    <div>
+        <h6>Browse All Music From MUSiCA</h6>
+    </div>
+
+    <div class="my-3">
+        <div class="" style="height: 35ch; width: 100%; position: relative;">
+            <img class="rounded"
+                src="https://images.unsplash.com/photo-1519445319698-eed4e883433f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                style="height: 100%; width: 100%; object-fit: cover;" alt="">
+            <div class="playlist-layer rounded px-4 py-5 d-flex flex-column justify-content-between">
+                <h1 class="fw-bolder col-3">MUSIC MAKES YOU FEEL BETTER</h1>
+                <div>
+                    <button onclick="playMusic('songs', '{{musics.0.id}}')" class="btn btn-dark rounded px-5 py-2">Play</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-3">
+        {% for item in musics %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col-auto d-flex align-items-center">
+                <div onclick="playMusic('songs', '{{item.id}}')" class="no-img-avatar-sm badge-info"><i
+                        class="fa-solid fa-play text-info"></i></div>
+            </div>
+            <div class="col-3 d-flex align-items-center">
+                <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{item.poster}}" alt="">
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{item.title}}</p>
+                    <p class="m-0 text-sm">{{item.singer}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-primary fw-light px-3">{{item.genre}}</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">{{item.uploader}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">{{item.date}}</p>
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-danger rounded text-sm mx-1" href="/delete-playlist/{{item.id}}"><i
+                        class="fa-solid fa-trash text-danger"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

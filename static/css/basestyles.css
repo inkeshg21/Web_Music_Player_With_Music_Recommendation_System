@@ -1,5 +1,8 @@
 * {
   font-family: Poppins;
+}
+
+body {
   color: #707070;
 }
 
@@ -7,8 +10,6 @@ a {
   text-decoration: none;
   color: #707070;
 }
-
-
 
 :root {
   --primary: #3aa0ff;

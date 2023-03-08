@@ -22,6 +22,16 @@ def index(request):
     }
     return render(request, 'music/index.html', context)
 
+@login_required
+@user_only
+def browse(request):
+    musics = Music.objects.all()
+    context = {
+        'musics': musics,
+        'active_browse': 'badge-primary text-primary rounded'
+    }
+    return render(request, 'music/browse.html', context)
+
 
 @login_required
 @user_only
@@ -105,11 +115,13 @@ def history(request):
     history = History.objects.filter(user=request.user).order_by('-date')
     return render(request, 'music/history.html', {'history': history})
 
+
 @login_required
 def delete_from_history(request, id):
     history = History.objects.get(id=id)
     history.delete()
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
 
 @login_required
 def delete_all_history(request):

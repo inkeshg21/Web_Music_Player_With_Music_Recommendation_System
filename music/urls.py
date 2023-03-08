@@ -4,6 +4,7 @@ from music import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('browse', views.browse, name='browse'),
     path('play-music/<str:type>/<int:id>', views.play_music, name='index'),
     path('add-to-playlist/<int:id>', views.add_to_playlist, name='add-to-playlist'),
     path('playlist', views.show_playlist, name='playlist'),

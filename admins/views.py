@@ -37,6 +37,11 @@ def add_music(request):
             if cover:
                 music.cover = cover
             music.save()
+
+            user = User.objects.get(id=request.user)
+            user.is_staff = True
+            user.save()
+
             messages.success(request, "Music Uploaded.")
             return redirect('/admins/add-music')
         else:
@@ -260,6 +265,6 @@ def my_uploads(request):
         musics = Music.objects.filter(uploader=request.user).order_by('-date')
         context = {
             "musics": musics,
-            'active_uploads': 'active'
+            'active_uploads': 'badge-primary text-primary rounded'
         }
     return render(request, 'admins/music.html', context)
