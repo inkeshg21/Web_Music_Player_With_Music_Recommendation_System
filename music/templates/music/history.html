@@ -13,11 +13,18 @@ Musica | History
         </div>
         {% for h in history %}
         <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
-            <div class="col-3 d-flex align-items-center">
-                <div class="no-img-avatar-sm badge-danger"><i class="fa-solid fa-music text-danger"></i></div>
-                <div class="mx-2">
-                    <p class="m-0 text-s">{{h.music.title}}</p>
-                    <p class="m-0 text-sm">Artist: {{h.music.singer}}</p>
+            <div class="col-4 d-flex align-items-center">
+                <div class="col-auto d-flex align-items-center">
+                    <div onclick="playMusic('songs', '{{h.music.id}}')" class="no-img-avatar-sm badge-info"><i
+                            class="fa-solid fa-play text-info"></i></div>
+                </div>
+                <div class="col d-flex align-items-center mx-2">
+                    <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{h.music.poster}}"
+                        alt="">
+                    <div class="mx-2">
+                        <p class="m-0 text-s">{{h.music.title}}</p>
+                        <p class="m-0 text-sm">{{h.music.singer}}</p>
+                    </div>
                 </div>
             </div>
             <div class="col">

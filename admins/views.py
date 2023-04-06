@@ -38,7 +38,7 @@ def add_music(request):
                 music.cover = cover
             music.save()
 
-            user = User.objects.get(id=request.user)
+            user = User.objects.get(id=request.user.id)
             user.is_staff = True
             user.save()
 
@@ -90,7 +90,7 @@ def delete_music(request, id):
     messages.success(request, "Song has been removed.")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-
+@admin_only
 def users(request):
     if request.method == 'POST':
         search = request.POST.get('search')
@@ -112,7 +112,7 @@ def users(request):
 
 # add new user
 
-
+@admin_only
 def add_user(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -133,7 +133,7 @@ def add_user(request):
 
 # update user
 
-
+@admin_only
 def update_user(request, id):
     user = User.objects.get(id=id)
     if request.method == 'POST':
