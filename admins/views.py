@@ -99,14 +99,14 @@ def users(request):
 
         context = {
             "users": users,
-            'active_users': 'active',
+            'active_users': 'badge-primary text-primary rounded',
             'search': search
         }
     else:
         users = User.objects.filter().exclude(username=request.user)
         context = {
             "users": users,
-            'active_users': 'active'
+            'active_users': 'badge-primary text-primary rounded'
         }
     return render(request, 'admins/users.html', context)
 
@@ -239,14 +239,14 @@ def music(request):
         musics = Music.objects.filter(title__icontains=search)
         context = {
             "musics": musics,
-            'active_music': 'active',
+            'active_music': 'badge-primary text-primary rounded',
             'search': search
         }
     else:
         musics = Music.objects.all().order_by('-date')
         context = {
             "musics": musics,
-            'active_music': 'active'
+            'active_music': 'badge-primary text-primary rounded'
         }
     return render(request, 'admins/music.html', context)
 
@@ -255,10 +255,10 @@ def music(request):
 def my_uploads(request):
     if request.method == 'POST':
         search = request.POST.get('search')
-        musics = Music.objects.filter(title__icontains=search)
+        musics = Music.objects.filter(title__icontains=search, uploader=request.user)
         context = {
             "musics": musics,
-            'active_uploads': 'active',
+            'active_uploads': 'badge-primary text-primary rounded',
             'search': search
         }
     else:

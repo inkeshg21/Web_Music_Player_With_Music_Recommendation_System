@@ -22,6 +22,7 @@ def index(request):
     }
     return render(request, 'music/index.html', context)
 
+
 @login_required
 @user_only
 def browse(request):
@@ -120,6 +121,7 @@ def history(request):
 def delete_from_history(request, id):
     history = History.objects.get(id=id)
     history.delete()
+    messages.success(request, "Song removed from history")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
@@ -127,4 +129,5 @@ def delete_from_history(request, id):
 def delete_all_history(request):
     history = History.objects.filter(user=request.user)
     history.delete()
+    messages.success(request, "Song history has been cleared")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
