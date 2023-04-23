@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="py-2">
+        <p>Add an artist to MUSICA</p>
+        <div class="col-5">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group my-4">
+                    <label for="">First Name</label>
+                    <input class="form-control text-sm rounded" type="text" name="first_name" placeholder="Enter First Name" value="{{artist.first_name}}">
+                </div>
+                <div class="form-group my-4">
+                    <label for="">Last Name</label>
+                    <input class="form-control text-sm rounded" type="text" name="last_name" placeholder="Enter Last Name" value="{{artist.last_name}}">
+                </div>
+                <div class="my-4">
+                    <input type="file" accept="image/*" name="artist_image">
+                </div>
+                <button class="btn btn-sm btn-primary rounded py-2 d-block w-100" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

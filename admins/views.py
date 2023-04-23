@@ -6,11 +6,12 @@ from accounts.auth import admin_only
 from .forms import MusicForm, UserUpdate
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from music.models import History, Music, Playlist
+from music.models import Artist, History, Music, Playlist
 from accounts.forms import PasswordChange, RegistrationForm
 from accounts.models import Profile
 from .helpers import send_forgotpassword
 import uuid
+from django.db.models import Q
 
 
 # Create your views here.
@@ -90,6 +91,7 @@ def delete_music(request, id):
     messages.success(request, "Song has been removed.")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
+
 @admin_only
 def users(request):
     if request.method == 'POST':
@@ -112,6 +114,7 @@ def users(request):
 
 # add new user
 
+
 @admin_only
 def add_user(request):
     if request.method == 'POST':
@@ -132,6 +135,7 @@ def add_user(request):
     return render(request, 'admins/add-user.html', {'form': form})
 
 # update user
+
 
 @admin_only
 def update_user(request, id):
@@ -183,6 +187,74 @@ def delete_user(request, id):
     messages.success(request, "User has been deleted.")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
+
+def artists(request):
+    artists = Artist.objects.all()
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        query = Q(first_name=search) | Q(last_name=search)
+        artists = Artist.objects.filter(query)
+        context = {
+            'artists': artists,
+            'active_artists': 'badge-primary text-primary rounded'
+        }
+        return render(request, 'admins/artists.html', context)
+    context = {
+        'artists': artists,
+        'active_artists': 'badge-primary text-primary rounded'
+    }
+    return render(request, 'admins/artists.html', context)
+
+
+def add_artist(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        image = request.FILES.get('artist_image')
+        artist_exists = Artist.objects.filter(
+            first_name=first_name, last_name=last_name).first()
+        if (artist_exists):
+            messages.error(request, "Artist already added")
+            return redirect('/admins/add-artist')
+        else:
+            artist = Artist.objects.create(
+                first_name=first_name, last_name=last_name, image=image)
+            artist.save()
+            messages.success(request, "Artist added successfully")
+            return redirect('/admins/add-artist')
+    else:
+        return render(request, 'admins/add-artist.html')
+
+
+def update_artist(request, id):
+    artist = Artist.objects.get(id=id)
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        image = request.FILES.get('artist_image')
+        artist_exists = Artist.objects.filter(
+            first_name=first_name, last_name=last_name).first()
+        if (artist_exists):
+            messages.error(request, "Artist already added")
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+        artist.first_name = first_name
+        artist.last_name = last_name
+        if image:
+            artist.image = image
+        artist.save()
+        messages.success(request, "Artist details updated")
+        return redirect('/admins/add-artist', {'artist': artist})
+    else:
+        return render(request, 'admins/add-artist.html', {'artist': artist})
+
+
+def delete_artist(request, id):
+    artist = Artist.objects.get(id=id)
+    artist.delete()
+    messages.success(request, "Artist has been removed.")
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
 # reset password
 
 
@@ -231,8 +303,8 @@ def change_password(request, token):
     return render(request, 'admins/reset-password.html', {'user_id': profile.user.id, 'form': form})
 
 
-@login_required
-@admin_only
+@ login_required
+@ admin_only
 def music(request):
     if request.method == 'POST':
         search = request.POST.get('search')
@@ -251,11 +323,12 @@ def music(request):
     return render(request, 'admins/music.html', context)
 
 
-@login_required
+@ login_required
 def my_uploads(request):
     if request.method == 'POST':
         search = request.POST.get('search')
-        musics = Music.objects.filter(title__icontains=search, uploader=request.user)
+        musics = Music.objects.filter(
+            title__icontains=search, uploader=request.user)
         context = {
             "musics": musics,
             'active_uploads': 'badge-primary text-primary rounded',

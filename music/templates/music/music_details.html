@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+MUSICA
+{% endblock %}
+
+{% block content %}
+
+<div class="py-4">
+    <div class="container row">
+        {% include 'message.html' %}
+        <div class="col-md-9">
+            <div class="" style="height: 50ch; width: 100%; position: relative;">
+                <img class="rounded"
+                    src="https://images.unsplash.com/photo-1519445319698-eed4e883433f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                    style="height: 100%; width: 100%; object-fit: cover;" alt="">
+                <div class="playlist-layer rounded px-4 d-flex flex-column justify-content-between">
+                    <div class="position-relative h-100">
+                        <div class="mx-auto container py-3 px-2 row position-absolute" style="bottom:0">
+                            <div class="col d-flex align-items-center">
+                                <img class="rounded" src="/{{music.poster}}"
+                                    style="height: 6ch; width: 5ch; object-fit: cover;" alt="">
+                                <div class="mx-2">
+                                    <h6 class="m-0 fw-bold">{{music.title}}</h6>
+                                    <p class="m-0 text-s">{{music.singer}}</p>
+                                </div>
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <audio id="player" controls autoplay>
+                                    <source src="/{{music.file}}" type="audio/mp3">
+                                </audio>
+                            </div>
+                            <div class="col-3 d-flex align-items-center jsutify-content-center">
+                                <a href="/music/{{next}}" id="prev-btn" class="no-img-avatar-sm badge-muted">
+                                    <i class="fa-solid fa-backward-step text-dark"></i>
+                                </a>
+                                <div onclick="audioPlay()" id="play-btn" class="no-img-avatar badge-muted mx-2">
+                                    <i class="fa-solid fa-play text-dark"></i>
+                                </div>
+                                <a href="/music/{{next}}" id="next-btn" class="no-img-avatar-sm badge-muted">
+                                    <i class="fa-solid fa-forward-step text-dark"></i>
+                                </a>
+                            </div>
+                            <div class="col-auto d-flex align-items-center">
+                                <div onclick="" id="next-btn" class="no-img-avatar-sm">
+                                    <a href="/add-to-playlist/{{music.id}}" id="prev-btn"
+                                        class="no-img-avatar-sm badge-muted">
+                                        <i class="fa-solid fa-plus text-dark"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="{% static 'scripts/music.js' %}"></script>
+                </div>
+            </div>
+            <div class="mx-3 my-3">
+                <div>
+                    <h5 class="m-0 fw-bold">{{music.title}} | <span class="text-xs">Uploaded {{music.date}}</span></h5>
+<!--                    <p class="my-2 text-s">Artist: {{music.artist.firstName}} {{music.artist.last_name}}</p>-->
+                    <p class="my-2 text-s">Genre: {{music.genre}}</p>
+                    <p class="my-2 text-s">Uploaded By: {{music.uploader}}</p>
+                    <p class="my-2 text-s">Music Description: {{music.description}}</p>
+<!--                    <p class="w-75 my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+<!--                        Porro esse earum ipsum dolorem consequatur! Eligendi aliquam ipsum natus maiores-->
+<!--                        temporibus porro pariatur? At exercitationem, similique rerum quos unde sed omnis?</p>-->
+<!--                    <p class="w-75 my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+<!--                        Porro esse earum ipsum dolorem consequatur! Eligendi aliquam ipsum natus maiores-->
+<!--                        temporibus porro pariatur? At exercitationem, similique rerum quos unde sed omnis?</p>-->
+<!--                    <p class="w-75 my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+<!--                        Porro esse earum ipsum dolorem consequatur! Eligendi aliquam ipsum natus maiores-->
+<!--                        temporibus porro pariatur? At exercitationem, similique rerum quos unde sed omnis?</p>-->
+<!--                    <p class="w-75 my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+<!--                        Porro esse earum ipsum dolorem consequatur! Eligendi aliquam ipsum natus maiores-->
+<!--                        temporibus porro pariatur? At exercitationem, similique rerum quos unde sed omnis?</p>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-flex flex-column gap-3">
+                {% for r in recommendation %}
+                <a href="/music/{{r.id}}" class="">
+                    <div class="border rounded" style="overflow:hidden;">
+                        <img src="/{{r.cover}}" style="height: 18ch; width:100%; object-fit: cover;" alt="">
+                        <div class="d-flex my-2 px-2">
+                            <div class="mx-2">
+                                <p class="m-0 text-s fw-bold">{{r.title}}</p>
+                                <p class="m-0 text-sm title text-s">{{r.singer}}</p>
+                                <p class="m-0 text-sm title text-s">{{r.genre}}</p>
+<!--                                Genre: {{music.genre}}-->
+                            </div>
+                            <div class="ms-auto">
+                                <p class="m-0 text-xs">3:45</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

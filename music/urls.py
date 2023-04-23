@@ -12,4 +12,5 @@ urlpatterns = [
     path('history', views.history, name='history'),
     path('delete-from-history/<int:id>', views.delete_from_history, name='delete-from-history'),
     path('delete-all-history', views.delete_all_history, name='delete-all-history'),
+    path('music/<int:id>', views.music_details, name='music_details')
 ]

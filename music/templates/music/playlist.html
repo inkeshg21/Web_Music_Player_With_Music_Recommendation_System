@@ -46,14 +46,14 @@ Musica | Admin
                 <div onclick="playMusic('playlist', '{{item.id}}')" class="no-img-avatar-sm badge-info"><i
                         class="fa-solid fa-play text-info"></i></div>
             </div>
-            <div class="col-3 d-flex align-items-center">
+            <a href="/music/{{item.music.id}}" class="col-3 d-flex align-items-center">
                 <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{item.music.poster}}"
                     alt="">
                 <div class="mx-2">
                     <p class="m-0 text-s">{{item.music.title}}</p>
                     <p class="m-0 text-sm">{{item.music.singer}}</p>
                 </div>
-            </div>
+            </a>
             <div class="col">
                 <p class="m-0 text-s">Genre:</p>
                 <p class="m-0 text-sm badge badge-primary fw-light px-3">{{item.music.genre}}</p>

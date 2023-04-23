@@ -25,10 +25,22 @@ MUSICA
             <div class="playlist-layer rounded px-4 py-5 d-flex flex-column justify-content-between">
                 <h1 class="fw-bolder col-3">MUSIC MAKES YOU FEEL BETTER</h1>
                 <div>
-                    <button onclick="playMusic('songs', '{{musics.0.id}}')" class="btn btn-dark rounded px-5 py-2">Play</button>
+                    <button onclick="playMusic('songs', '{{musics.0.id}}')"
+                        class="btn btn-dark rounded px-5 py-2">Play</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div>
+        <form class="d-flex" action="" method="POST">
+            {% csrf_token %}
+            <div class="text-s text-secondary">
+                <input class="form-control form-control-sm rounded" type="text" name="search" placeholder="Search"
+                    value="{{search}}">
+            </div>
+            <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
+        </form>
     </div>
 
     <div class="my-3">
@@ -38,13 +50,13 @@ MUSICA
                 <div onclick="playMusic('songs', '{{item.id}}')" class="no-img-avatar-sm badge-info"><i
                         class="fa-solid fa-play text-info"></i></div>
             </div>
-            <div class="col-3 d-flex align-items-center">
+            <a href="/music/{{item.id}}" class="col-3 d-flex align-items-center">
                 <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{item.poster}}" alt="">
                 <div class="mx-2">
                     <p class="m-0 text-s">{{item.title}}</p>
                     <p class="m-0 text-sm">{{item.singer}}</p>
                 </div>
-            </div>
+            </a>
             <div class="col">
                 <p class="m-0 text-s">Genre:</p>
                 <p class="m-0 text-sm badge badge-primary fw-light px-3">{{item.genre}}</p>

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Musica | Admin
+{% endblock %}
+
+{% block content %}
+<div class="">
+    {% include 'message.html' %}
+    <div class="">
+        <div>
+            <h5 class="">Artists</h5>
+            <p class="text-s">Manage accounts for all user to MUSICA</p>
+        </div>
+        <div class="d-flex my-4">
+            <div>
+                <form class="d-flex" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="text-s text-secondary">
+                        <input class="form-control form-control-sm rounded" type="text" name="search" placeholder="Search" value="{{search}}">
+                    </div>
+                    <button class="btn btn-primary btn-sm px-3 rounded mx-1" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="ms-auto me-3">
+                <a class="no-img-avatar-sm shadow btn btn-primary text-light" href="/admins/add-artist">+</a>
+            </div>
+        </div>
+        {% for a in artists %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <div class="col-auto d-flex align-items-center">
+                <div class='position-relative'>
+                    {% if a.image %}
+                    <img class='avatar' src="/{{a.image}}" alst="" />
+                    {% else %}
+                    <div class='no-img-avatar badge-warning rounded-circle'>
+                        <span class='text-warning'>{{ a.first_name|make_list|first|upper }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{a.first_name}} {{a.last_name}}</p>
+                    <p class="m-0 text-xs badge badge-primary">Artist</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Added</p>
+                    <p class="m-0 text-sm fw-bold">{{a.date_added}}</p>
+                </div>
+            </div>
+            <div class="col-auto">
+                <a class="btn badge-muted rounded text-sm" href="/admins/update-artist/{{a.id}}"><i class="fa-solid fa-edit text-secondary"></i></a>
+                <a class="btn badge-danger rounded text-sm mx-1" href="/admins/remove-artist/{{a.id}}"><i class="fa-solid fa-trash text-danger"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

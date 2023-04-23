@@ -27,10 +27,20 @@ def index(request):
 @user_only
 def browse(request):
     musics = Music.objects.all()
-    context = {
-        'musics': musics,
-        'active_browse': 'badge-primary text-primary rounded'
-    }
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        musics = Music.objects.filter(title__icontains=search)
+        context = {
+            'musics': musics,
+            'active_browse': 'badge-primary text-primary rounded'
+        }
+        return render(request, 'music/browse.html', context)
+
+    else:
+        context = {
+            'musics': musics,
+            'active_browse': 'badge-primary text-primary rounded'
+        }
     return render(request, 'music/browse.html', context)
 
 
@@ -131,3 +141,15 @@ def delete_all_history(request):
     history.delete()
     messages.success(request, "Song history has been cleared")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def music_details(request, id):
+    music = Music.objects.get(id=id)
+    recommendation = Music.objects.all()
+    next = random.choice(recommendation).id
+    context = {
+        'music': music,
+        'recommendation': recommendation,
+        'next': next
+    }
+    return render(request, 'music/music_details.html', context)

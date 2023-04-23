@@ -18,14 +18,14 @@ Musica | History
                     <div onclick="playMusic('songs', '{{h.music.id}}')" class="no-img-avatar-sm badge-info"><i
                             class="fa-solid fa-play text-info"></i></div>
                 </div>
-                <div class="col d-flex align-items-center mx-2">
+                <a href="/music/{{h.music.id}}" class="col d-flex align-items-center mx-2">
                     <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{h.music.poster}}"
                         alt="">
                     <div class="mx-2">
                         <p class="m-0 text-s">{{h.music.title}}</p>
                         <p class="m-0 text-sm">{{h.music.singer}}</p>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col">
                 <p class="m-0 text-s">Genre:</p>

@@ -22,7 +22,7 @@ MUSICA
         <div onclick="playMusic('songs', '{{r.music.id}}')" class="col-md-3 mb-3">
             <div class="border rounded" style="overflow:hidden;">
                 <img src="/{{r.music.cover}}" style="height: 18ch; width:100%; object-fit: cover;" alt="">
-                <a href="/music/{{r.music.id}}" class="d-flex my-2 px-2">
+                <div class="d-flex my-2 px-2">
                     <div class="no-img-avatar-sm badge-primary"><i class="fa-solid fa-play text-primary"></i></div>
                     <div class="mx-2">
                         <p class="m-0 text-s title">{{r.music.title}}</p>
@@ -31,7 +31,7 @@ MUSICA
                     <div class="ms-auto">
                         <p class="m-0 text-xs">3:45</p>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
         {% endfor %}
