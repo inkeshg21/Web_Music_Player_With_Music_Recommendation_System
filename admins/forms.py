@@ -63,6 +63,7 @@ class MusicForm(forms.Form):
             file = self.cleaned_data['file']
             filter = Music.Objects.filter(file=file)
             if filter:
+                #if value chai xa bahan true else false
                 raise forms.ValidationError('Music is already uploaded')
             return file
 

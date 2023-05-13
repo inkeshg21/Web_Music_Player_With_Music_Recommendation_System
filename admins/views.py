@@ -16,11 +16,15 @@ from django.db.models import Q
 
 # Create your views here.
 def add_music(request):
+    artists = Artist.objects.all()
+    #retreave all the artist from the dataset
     if request.method == 'POST':
         data = request.POST
         form = MusicForm(request.POST)
         title = data.get('title')
         singer = data.get('singer')
+        artist = Artist.objects.get(id=singer)
+        # to show all the artsit in form with id of singer
         genre = data.get('genre')
         description = data.get('description')
 
@@ -28,7 +32,7 @@ def add_music(request):
         poster = request.FILES.get('poster')
         cover = request.FILES.get('cover')
 
-        music = Music.objects.create(uploader=request.user, title=title, singer=singer, genre=genre,
+        music = Music.objects.create(uploader=request.user, title=title, artist=artist, genre=genre,
                                      description=description)
         if music:
             if file:
@@ -40,7 +44,9 @@ def add_music(request):
             music.save()
 
             user = User.objects.get(id=request.user.id)
+            #get the current user id with crossponding to user object in dataset
             user.is_staff = True
+            #user privileges like creating,CRUD
             user.save()
 
             messages.success(request, "Music Uploaded.")
@@ -49,19 +55,24 @@ def add_music(request):
             messages.error(request, "File upload failed!!")
     else:
         form = MusicForm()
-    return render(request, 'admins/add-music.html', {'form': form})
+    return render(request, 'admins/add-music.html', {'form': form, 'artists': artists})
 
 
 def update_music(request, id):
     music = Music.objects.get(id=id)
+    artists = Artist.objects.all()
+    current_artist = Artist.objects.get(id=music.artist.id).id
+    #it get the artis accociated with music id then it retreave artist id with that artist so it can be helpful to edit the music.
+    print(current_artist)
     if request.method == 'POST':
         data = request.POST
         title = data.get('title')
         singer = data.get('singer')
+        artist = Artist.objects.get(id=singer)
         genre = data.get('genre')
         description = data.get('description')
         music.title = title
-        music.singer = singer
+        music.artist = artist
         music.genre = genre
         music.description = description
 
@@ -82,7 +93,7 @@ def update_music(request, id):
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         else:
             messages.error(request, "File update failed!")
-    return render(request, 'admins/update-music.html', {'data': music})
+    return render(request, 'admins/update-music.html', {'data': music, 'artists': artists, 'current_artist': current_artist})
 
 
 def delete_music(request, id):
@@ -98,6 +109,8 @@ def users(request):
         search = request.POST.get('search')
         users = User.objects.filter(
             username__icontains=search)
+        #match with upper and lower case with help of icontains and __ help to find what
+        # is input in search wih is ase insensative.
 
         context = {
             "users": users,
@@ -152,6 +165,9 @@ def update_user(request, id):
 
             usernameExists = User.objects.filter(
                 username=username).exclude(username=user.username)
+            #check whether the User.objects.filter(username=username) and .exclude(username=user.username)
+            # excludes the current user being edited from the queryset of users with matching usernames.
+            # That prevent form the user has been changed.
             emailExists = User.objects.filter(
                 email=email).exclude(email=user.email)
 
@@ -211,6 +227,7 @@ def add_artist(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         image = request.FILES.get('artist_image')
+        country = request.POST.get('country')
         artist_exists = Artist.objects.filter(
             first_name=first_name, last_name=last_name).first()
         if (artist_exists):
@@ -218,7 +235,7 @@ def add_artist(request):
             return redirect('/admins/add-artist')
         else:
             artist = Artist.objects.create(
-                first_name=first_name, last_name=last_name, image=image)
+                first_name=first_name, last_name=last_name, image=image, country=country)
             artist.save()
             messages.success(request, "Artist added successfully")
             return redirect('/admins/add-artist')
@@ -232,6 +249,7 @@ def update_artist(request, id):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         image = request.FILES.get('artist_image')
+        country = request.POST.get('country')
         artist_exists = Artist.objects.filter(
             first_name=first_name, last_name=last_name).first()
         if (artist_exists):
@@ -239,6 +257,7 @@ def update_artist(request, id):
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         artist.first_name = first_name
         artist.last_name = last_name
+        artist.country = country
         if image:
             artist.image = image
         artist.save()
@@ -259,6 +278,7 @@ def delete_artist(request, id):
 
 
 def reset_password(request):
+    #email
     try:
         if request.method == "POST":
             data = request.POST
@@ -268,8 +288,11 @@ def reset_password(request):
             user = User.objects.get(email=email)
             print(user)
             profile = Profile.objects.get(user=user)
+            # user table bata foregin key whih is idbata user(id)=user
             token = str(uuid.uuid4())
+            # send token to reset password
             profile.forgot_password_token = token
+            #profile ko table ma token page ma hunxa token verify when reset password garxa
             profile.save()
             send_forgotpassword(user.email, token)
             messages.success(
@@ -282,6 +305,7 @@ def reset_password(request):
 
 
 def change_password(request, token):
+    #profile
     profile = Profile.objects.get(forgot_password_token=token)
     if request.method == "POST":
         form = PasswordChange(request.POST)

@@ -15,75 +15,21 @@ MUSICA
 
 
     <div class="my-4">
-        <h5>Recently Played</h5>
+        <h5>Popular Artists</h5>
     </div>
-    <div class="row">
-        {% for r in recents %}
-        <div onclick="playMusic('songs', '{{r.music.id}}')" class="col-md-3 mb-3">
-            <div class="border rounded" style="overflow:hidden;">
-                <img src="/{{r.music.cover}}" style="height: 18ch; width:100%; object-fit: cover;" alt="">
-                <div class="d-flex my-2 px-2">
-                    <div class="no-img-avatar-sm badge-primary"><i class="fa-solid fa-play text-primary"></i></div>
-                    <div class="mx-2">
-                        <p class="m-0 text-s title">{{r.music.title}}</p>
-                        <p class="m-0 text-sm title">{{r.music.singer}}</p>
-                    </div>
-                    <div class="ms-auto">
-                        <p class="m-0 text-xs">3:45</p>
-                    </div>
-                </div>
+    <div class="d-flex flex-wrap gap-4">
+        {% for r in artists %}
+        <a href="/artist-songs/{{r.id}}">
+            <div class="rounded shadow-sm" style="height: 20ch; width: 20ch; overflow: hidden;">
+                <img src="{{r.image}}" style="height: 100%; width: 100%; object-fit: cover;" alt="">
             </div>
-        </div>
+            <div class="my-2">
+                <h6 class="text-s text-dark">{{r.first_name}} {{r.last_name}}</h6>
+                <p class="text-s text-secondary"><i class="fa-solid fa-compact-disc me-1"></i>{{r.songs}} Songs</p>
+            </div>
+        </a>
         {% endfor %}
     </div>
-
-
-    <div class="my-4">
-        <h5>Latest Songs</h5>
-    </div>
-    <div class="row">
-        {% for m in musics %}
-        <div onclick="playMusic('songs', '{{m.id}}')" class="col-md-3 mb-3">
-            <div class="border rounded" style="overflow:hidden;">
-                <img src="/{{m.cover}}" style="height: 18ch; width:100%; object-fit: cover;" alt="">
-                <div class="d-flex my-2 px-2">
-                    <div class="no-img-avatar-sm badge-primary"><i class="fa-solid fa-play text-primary"></i></div>
-                    <div class="mx-2">
-                        <p class="m-0 text-s title">{{m.title}}</p>
-                        <p class="m-0 text-sm title">{{m.singer}}</p>
-                    </div>
-                    <div class="ms-auto">
-                        <p class="m-0 text-xs">3:45</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="my-4">
-        <h5>Popular Songs</h5>
-    </div>
-    <div class="row">
-        {% for m in musics %}
-        <div onclick="playMusic('{{m.id}}')" class="col-md-3 mb-3">
-            <div class="border rounded" style="overflow:hidden;">
-                <img src="/{{m.cover}}" style="height: 18ch; width:100%; object-fit: cover;" alt="">
-                <div class="d-flex my-2 px-2">
-                    <div class="no-img-avatar-sm badge-primary"><i class="fa-solid fa-play text-primary"></i></div>
-                    <div class="mx-2">
-                        <p class="m-0 text-s title">{{m.title}}</p>
-                        <p class="m-0 text-sm title">{{m.singer}}</p>
-                    </div>
-                    <div class="ms-auto">
-                        <p class="m-0 text-xs">3:45</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
 </div>
 
 {% endblock %}

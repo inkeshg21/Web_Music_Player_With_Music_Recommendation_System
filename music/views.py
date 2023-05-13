@@ -5,8 +5,10 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from accounts.auth import user_only
-from music.models import History, Music, Playlist
+from music.models import Artist, History, Music, Playlist, Rating
 from django.contrib import messages
+
+from music.utils import recommend_songs
 
 
 # Create your views here.
@@ -15,12 +17,27 @@ from django.contrib import messages
 def index(request):
     musics = Music.objects.all()
     recents = History.objects.filter(user=request.user).order_by('-date')
+    recommendations = []
+    for i in range(len(recents[:5])):
+        recommend = recommend_songs(recents[i].music.title)
+        for r in recommend:
+            song = Music.objects.filter(title=r).first()
+            recommendations.append(song)
+
+    recommendations = list(set(recommendations))
+    print(recommendations)
     context = {
         'musics': musics,
         'recents': recents,
-        'active_home': 'badge-primary text-primary rounded'
+        'active_home': 'badge-primary text-primary rounded',
+        'recommendations': recommendations
     }
     return render(request, 'music/index.html', context)
+
+
+@user_only
+def about(request):
+    return render(request, 'music/about.html', {'active_about': 'badge-primary text-primary rounded'})
 
 
 @login_required
@@ -55,6 +72,7 @@ def play_music(request, type, id):
 
     if type == 'songs':
         music = Music.objects.get(id=id)
+        print(music)
     if type == 'playlist':
         songs = list(Playlist.objects.filter(user=request.user).order_by('id'))
         playlist = Playlist.objects.get(id=id)
@@ -145,11 +163,72 @@ def delete_all_history(request):
 
 def music_details(request, id):
     music = Music.objects.get(id=id)
-    recommendation = Music.objects.all()
-    next = random.choice(recommendation).id
+    ratings = Rating.objects.filter(song=id)
+    recommendations = []
+    try:
+        recommendation = recommend_songs(music.title)
+        for r in recommendation:
+            song = Music.objects.filter(title=r).first()
+            recommendations.append(song)
+        # next = random.choice(recommendation).id
+
+        recommendations = list(set(recommendations))
+    except Exception as e:
+        print(e)
+
+    if len(recommendations) == 0:
+        recommendations = Music.objects.all()[:10]
+
+    if request.method == 'POST':
+        data = request.POST
+        rate = data.get('rating')
+        comment = data.get('comment')
+
+        ratingExist = Rating.objects.filter(
+            user=request.user.id, song=id).first()
+
+        if not ratingExist:
+            rating = Rating.objects.create(
+                user=request.user, song=music, rating=rate, comment=comment)
+            rating.save()
+            messages.success(request, "Song review submitted successfully.")
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+        else:
+            messages.error(request, "You have already rated this song.")
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
     context = {
         'music': music,
-        'recommendation': recommendation,
+        'recommendation': recommendations,
+        'ratings': ratings,
         'next': next
     }
     return render(request, 'music/music_details.html', context)
+
+
+@user_only
+def browse_artists(request):
+    artists = Artist.objects.all()
+    for artist in artists:
+        artist.songs = Music.objects.filter(artist=artist.id).count()
+    context = {
+        'active_artists': "badge-primary text-primary rounded",
+        'artists': artists
+    }
+
+    return render(request, 'music/artists.html', context)
+
+
+@user_only
+def artists_songs(request, artist_id):
+    artist = Artist.objects.filter(id=artist_id).first()
+    if not artist:
+        messages.error(request, "Failed to get artists data.")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+    music = Music.objects.filter(artist=artist.id).order_by('-date')
+    context = {
+        "songs": music,
+        'artist': artist
+    }
+    return render(request, "music/artists-songs.html", context)

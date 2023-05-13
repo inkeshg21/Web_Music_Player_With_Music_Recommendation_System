@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+MUSICA
+{% endblock %}
+
+{% block content %}
+<div class="py-0">
+    <h2 class="fw-bold my-3">About</h2>
+    <div class="row mt-5">
+        <div class="col-md-6 d-flex flex-column justify-content-start">
+            <h5>Best Music Streaming Platform</h5>
+            <p class="text-s my-2">
+                Introducing Musica, the ultimate destination for music enthusiasts around
+                the world. Our cutting-edge platform offers a revolutionary music streaming experience like no other.
+                With a vast library of songs spanning across genres, Musica is the go-to
+                destination for discovering new artists, exploring diverse musical styles, and enjoying your all-time
+                favorites.
+            </p>
+            <p class="text-s my-2">
+                One of the standout features of Musica is our personalized recommendation
+                system. Using advanced algorithms, we curate customized playlists based on your listening habits,
+                ensuring that you never miss out on the music you love.
+            </p>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-lg rounded text-s btn-primary">Follow Us</button>
+                <button class="btn btn-lg rounded text-s btn-outline-primary">Contact Us</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img class="rounded" style="height: 40ch; width: 100%"
+                src="https://images.unsplash.com/photo-1477233534935-f5e6fe7c1159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                alt="">
+        </div>
+    </div>
+</div>
+{% endblock %}

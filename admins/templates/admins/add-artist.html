@@ -13,11 +13,18 @@ Musica | Admin
                 {% csrf_token %}
                 <div class="form-group my-4">
                     <label for="">First Name</label>
-                    <input class="form-control text-sm rounded" type="text" name="first_name" placeholder="Enter First Name" value="{{artist.first_name}}">
+                    <input class="form-control text-sm rounded" type="text" name="first_name"
+                        placeholder="Enter First Name" value="{{artist.first_name}}">
                 </div>
                 <div class="form-group my-4">
                     <label for="">Last Name</label>
-                    <input class="form-control text-sm rounded" type="text" name="last_name" placeholder="Enter Last Name" value="{{artist.last_name}}">
+                    <input class="form-control text-sm rounded" type="text" name="last_name"
+                        placeholder="Enter Last Name" value="{{artist.last_name}}">
+                </div>
+                <div class="form-group my-4">
+                    <label for="">Country</label>
+                    <input class="form-control text-sm rounded" type="text" name="country" placeholder="Enter Last Name"
+                        value="{{artist.country}}">
                 </div>
                 <div class="my-4">
                     <input type="file" accept="image/*" name="artist_image">

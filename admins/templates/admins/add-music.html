@@ -8,7 +8,7 @@ Musica | Admin
 <div class="px-3">
     {% include 'message.html' %}
     <div class="py-2">
-        <p>Upload Song</p>
+        <p class="fw-bold">Upload Song</p>
         <div class="col-5">
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -21,8 +21,12 @@ Musica | Admin
                 <div class="form-group my-3">
                     <label for="">Singer:</label>
                     <div>
-                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Singer Name" name="singer" required>
-
+                        <select class="form-control form-select text-secondary text-s rounded" name="singer" id="" required>
+                            <option value="" disabled selected>Select Artist</option>
+                            {% for a in artists %}
+                            <option value="{{a.id}}">{{a.first_name}} {{a.last_name}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="form-group my-3">

@@ -87,6 +87,7 @@ class RegistrationForm(forms.Form):
     def clean_password1(self):
         if "password1" in self.cleaned_data:
             if(bool(re.search('^[a-zA-Z0-9]*$',self.cleaned_data['password1'])) == True):
+                #re.search('^[a-zA-Z0-9]*$' check whether spacial character xa ke nai
                 raise forms.ValidationError('Password must contain at least 1 special character and uppercase.')
             else:
                 if (len(self.cleaned_data['password1']) < 6):
@@ -167,6 +168,7 @@ class PasswordChange(forms.Form):
                     raise forms.ValidationError('Passwords must be less than 18 character.')
         return self.cleaned_data['password1']
     def clean_password2(self):
+        # when validation is done all the data is saved in the cleaned dictionary.
         if 'password1' in self.cleaned_data:
             password1 = self.cleaned_data['password1']
             password2 = self.cleaned_data['password2']

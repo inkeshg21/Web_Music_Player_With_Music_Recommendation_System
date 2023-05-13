@@ -6,8 +6,9 @@ Musica | Admin
 
 {% block content %}
 <div class="px-3">
+    {% include 'message.html' %}
     <div class="py-4">
-        <p>Upload Song</p>
+        <p class="fw-bold">Upload Song</p>
         <div class="col-5">
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -15,16 +16,24 @@ Musica | Admin
                     <label for="">Title:</label>
                     <div>
                         <input class="form-control text-secondary text-s rounded" type="text" placeholder="Music Title"
-                               value="{{data.title}}" name="title" required>
+                            value="{{data.title}}" name="title" required>
 
                     </div>
                 </div>
                 <div class="form-group my-3">
                     <label for="">Singer:</label>
                     <div>
-                        <input class="form-control text-secondary text-s rounded" type="text" placeholder="Singer Name"
-                               value="{{data.singer}}" name="singer" required>
-
+                        <select class="form-control form-select text-secondary text-s rounded" name="singer" id=""
+                            required>
+                            <option value="" disabled selected>Select Artist</option>
+                            {% for a in artists %}
+                            {% if current_artist == a.id %}
+                            <option value="{{a.id}}" selected>{{a.first_name}} {{a.last_name}}</option>
+                            {% else %}
+                            <option value="{{a.id}}">{{a.first_name}} {{a.last_name}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="form-group my-3">
@@ -67,7 +76,7 @@ Musica | Admin
                     <label for="">Description:</label>
                     <div>
                         <textarea class="form-control text-secondary rounded text-s" name="description" rows="10"
-                                  placeholder="Song description..." required>{{data.description}}</textarea>
+                            placeholder="Song description..." required>{{data.description}}</textarea>
                     </div>
                 </div>
 

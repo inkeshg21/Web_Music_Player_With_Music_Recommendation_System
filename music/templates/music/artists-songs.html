@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Musica | Songs By Artist
+{% endblock %}
+
+{% block content %}
+<div class="px-3">
+    {% include 'message.html' %}
+    <div class="">
+        <div class="my-5">
+            <h6>What's hot 🔥</h6>
+            <div class="" style="height: 35ch; width: 100%; position: relative;">
+                <img class="rounded"
+                    src="https://images.unsplash.com/photo-1575285113814-f770cb8c796e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjBhcnRpc3R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+                    style="height: 100%; width: 100%; object-fit: cover;" alt="">
+                <div class="playlist-layer rounded px-4 py-5 d-flex flex-column justify-content-between">
+                    <h1 class="fw-bolder col-3">MUSIC MAKES YOU FEEL BETTER</h1>
+                    <div>
+                        <button onclick="playMusic('playlist', '{{songs.0.id}}')"
+                            class="btn btn-dark rounded px-5 py-2">Play</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5 class="">Songs By {{artist.first_name}} {{artist.last_name}}</h5>
+            <p class="text-s">Browse all the songs from your playlist.</p>
+        </div>
+        {% for item in songs %}
+        <div class="row container mx-auto rounded border py-2 px-3 align-items-center my-2">
+            <a href="/music/{{item.id}}" class="col-3 d-flex align-items-center">
+                <img class="rounded" style="height: 6ch; width: 5ch; object-fit: cover;" src="/{{item.poster}}" alt="">
+                <div class="mx-2">
+                    <p class="m-0 text-s">{{item.title}}</p>
+                </div>
+            </a>
+            <div class="col">
+                <p class="m-0 text-s">Genre:</p>
+                <p class="m-0 text-sm badge badge-primary fw-light px-3">{{item.genre}}</p>
+            </div>
+            <div class="col">
+                <div class="mx-2">
+                    <p class="m-0 text-s">Uploaded By:</p>
+                    <p class="m-0 text-sm fw-bold">{{item.uploader}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="m-0 text-s">Uploaded:</p>
+                <p class="m-0 text-sm">{{item.date}}</p>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

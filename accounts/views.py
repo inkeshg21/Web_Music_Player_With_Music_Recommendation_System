@@ -60,6 +60,7 @@ def update_profile(request, id):
     profile = Profile.objects.filter(user=user)
     if not profile:
         profile = Profile.objects.create(user=user)
+        # to ensure that the user data is correctly saved to correct user database.
     else:
         profile = Profile.objects.get(user=user)
     if request.method == 'POST':

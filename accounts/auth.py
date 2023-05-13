@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 
 
+# When not logged in
 def unauthenticated_user(view_function):
     def wrapper_function(request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -10,7 +11,7 @@ def unauthenticated_user(view_function):
 
     return wrapper_function
 
-
+# for user
 def admin_only(view_function):
     def wrapper_function(request, *args, **kwargs):
         if not request.user.is_superuser:
@@ -19,6 +20,7 @@ def admin_only(view_function):
             return view_function(request, *args, **kwargs)
 
     return wrapper_function
+
 
 
 def user_only(view_function):
